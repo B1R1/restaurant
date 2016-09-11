@@ -18,9 +18,7 @@ BenchmarkResults.txt
 *.war
 *.ear
 
-
 # IntelliJ
 /out/
 .idea/
-src/main/resources/
 jdbc-2016-08-01.log

@@ -4,13 +4,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class Main {
+import javax.servlet.http.HttpServlet;
+
+public class Main extends HttpServlet {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
     private JdbcEmployeeDao employeeDao;
 
     public static void main(String[] args) {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("application-context.xml");
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("WEB-INF/application-context.xml");
         Main main = applicationContext.getBean("main", Main.class);
         main.start();
     }
