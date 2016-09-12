@@ -1,7 +1,9 @@
 package model;
 
+import javax.persistence.Entity;
 import java.util.HashMap;
 
+@Entity
 public class Storage {
 
     private HashMap<Ingredient, Integer> ingredientList;

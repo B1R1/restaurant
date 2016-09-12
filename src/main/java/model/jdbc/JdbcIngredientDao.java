@@ -1,6 +1,5 @@
 package model.jdbc;
 
-import model.Dish;
 import model.Ingredient;
 import model.IngredientDao;
 import org.slf4j.Logger;

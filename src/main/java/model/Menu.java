@@ -1,12 +1,14 @@
 package model;
 
+import javax.persistence.Entity;
 import java.util.List;
 
+@Entity
 public class Menu {
 
     private int id;
     private String name;
-    private List<Dish> dishes; // NEW - HAVE TO ADD TO TABLE
+    private List<Dishes> dishes; // NEW - HAVE TO ADD TO TABLE
 
     public int getId() {
         return id;
@@ -24,11 +26,11 @@ public class Menu {
         this.name = name;
     }
 
-    public List<Dish> getDishes() {
+    public List<Dishes> getDishes() {
         return dishes;
     }
 
-    public void setDishes(List<Dish> dishes) {
+    public void setDishes(List<Dishes> dishes) {
         this.dishes = dishes;
     }
 }

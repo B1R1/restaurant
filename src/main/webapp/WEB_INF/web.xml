@@ -4,15 +4,15 @@
          version="3.1">
 
 
-    <servlet>
-        <servlet-name>restaurant</servlet-name>
-        <servlet-class>Main</servlet-class>
-    </servlet>
+    <!--<servlet>-->
+        <!--<servlet-name>restaurant</servlet-name>-->
+        <!--<servlet-class>Main</servlet-class>-->
+    <!--</servlet>-->
 
-    <servlet-mapping>
-        <servlet-name>restaurant</servlet-name>
-        <url-pattern>/restaurant</url-pattern>
-    </servlet-mapping>
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>restaurant</servlet-name>-->
+        <!--<url-pattern>/restaurant</url-pattern>-->
+    <!--</servlet-mapping>-->
 
 
 </web-app>

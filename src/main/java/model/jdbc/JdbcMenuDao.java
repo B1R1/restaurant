@@ -53,7 +53,7 @@ public class JdbcMenuDao implements MenuDao {
 
         String name  = dish.findByName(dishName).getDishName();
         if(name.isEmpty()){
-            throw new RuntimeException("Cannot find Dish with name: " + dishName);
+            throw new RuntimeException("Cannot find Dishes with name: " + dishName);
         }
 
         try (
@@ -61,7 +61,7 @@ public class JdbcMenuDao implements MenuDao {
                 PreparedStatement statement =connection.prepareStatement("INSERT INTO dishes_to_menu VALUES (?, ?)")) {
             statement.setInt(1, id);
             statement.setString(2, name);
-            LOGGER.info("Successfully add new Dish to mne with menuName=" + menuName + ", dishName=" + dishName);
+            LOGGER.info("Successfully add new Dishes to mne with menuName=" + menuName + ", dishName=" + dishName);
         } catch (SQLException e) {
             LOGGER.error("Exception occurred while connecting to DB in method addDish(String menuName, String dishName) ", e);
             throw new RuntimeException(e);
@@ -75,7 +75,7 @@ public class JdbcMenuDao implements MenuDao {
 
         String name  = dishResult.findByName(dishName).getDishName();
         if(name.isEmpty()){
-            throw new RuntimeException("Cannot find Dish with name: " + dishName);
+            throw new RuntimeException("Cannot find Dishes with name: " + dishName);
         }
 
         int id = findByName(menuName).getId();
@@ -88,7 +88,7 @@ public class JdbcMenuDao implements MenuDao {
                 PreparedStatement statement =connection.prepareStatement("DELETE FROM dishes_to_menu WHERE dish_name= ? AND menu_id = ? ")) {
             statement.setString(1, name);
             statement.setInt(1, id);
-            LOGGER.info("Successfully delete Dish to mne with menuName=" + menuName + ", dishName=" + dishName);
+            LOGGER.info("Successfully delete Dishes to mne with menuName=" + menuName + ", dishName=" + dishName);
         } catch (SQLException e) {
             LOGGER.error("Exception occurred while connecting to DB in method deleteDish(String menuName, String dishName) ", e);
             throw new RuntimeException(e);

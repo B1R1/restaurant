@@ -1,7 +1,16 @@
 package model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "ingredients")
 public class Ingredient {
 
+    @Id
+    @Column (name = "name")
     private String ingredientName;
 
     public Ingredient() {
@@ -17,5 +26,12 @@ public class Ingredient {
 
     public void setIngredientName(String ingredientName) {
         this.ingredientName = ingredientName;
+    }
+
+    @Override
+    public String toString() {
+        return "Ingredient{" +
+                "ingredientName='" + ingredientName + '\'' +
+                '}';
     }
 }

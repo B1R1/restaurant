@@ -1,6 +1,5 @@
 package model.jdbc;
 
-import model.Order;
 import model.ReadyDish;
 import model.ReadyDishDao;
 import org.slf4j.Logger;

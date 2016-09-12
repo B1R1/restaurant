@@ -1,5 +1,8 @@
 package model;
 
+import javax.persistence.Entity;
+
+@Entity
 public class ReadyDish {
     private int dishId;
     private String dishName;

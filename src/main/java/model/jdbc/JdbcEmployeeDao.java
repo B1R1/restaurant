@@ -1,6 +1,6 @@
 package model.jdbc;
 
-import model.Employee;
+import model.Employees;
 import model.EmployeeDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +16,13 @@ public class JdbcEmployeeDao implements EmployeeDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(JdbcEmployeeDao.class);
 
     @Override
+    public void save(Employees employee) {
+
+    }
+
+    @Override
     public void addNewEmployee(int id, String surname, String name) {
-//        Employee employee = new Employee();
+//        Employees employee = new Employees();
 //        employee.setId(id);
 //        employee.setSurname(surname);
 //        employee.setSurname(name);
@@ -25,11 +30,16 @@ public class JdbcEmployeeDao implements EmployeeDao {
              PreparedStatement statement = connection.prepareStatement(
                      "INSERT INTO employee (id, surname, name) VALUES (id, surname, name)")) {
             statement.executeUpdate();
-            LOGGER.info("Successfully add new Employee with ID=" + id + ", surname=" + surname + ", name=" + name);
+            LOGGER.info("Successfully add new Employees with ID=" + id + ", surname=" + surname + ", name=" + name);
              } catch (SQLException e) {
             LOGGER.error("Exception occurred while connecting to DB in method addNewEmployee(int id, String surname, String name", e);
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void delete(Employees employee) {
+
     }
 
     @Override
@@ -39,7 +49,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
              PreparedStatement statement = connection.prepareStatement("DELETE FROM employee WHERE id= ?")) {
             statement.setInt(1, id);
             affectedRows = statement.executeUpdate();
-            LOGGER.info("Successfully delete Employee by ID=" + id);
+            LOGGER.info("Successfully delete Employees by ID=" + id);
         } catch (SQLException e) {
             LOGGER.error("Exception occurred while connecting to DB in method deleteEmployeeById(int id)", e);
             throw new RuntimeException (e);
@@ -49,8 +59,8 @@ public class JdbcEmployeeDao implements EmployeeDao {
     }
 
     @Override
-    public List<Employee> getEmployeeByName(String name) {
-        List<Employee> result = new ArrayList<>();
+    public List<Employees> getEmployeeByName(String name) {
+        List<Employees> result = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
 //             Connection connection = DriverManager.getConnection("dao.jdbc:postgresql://localhost:5433/restaurant", "user" ,"1111");
              PreparedStatement statement = connection.prepareStatement(
@@ -61,7 +71,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
                 result.add(createEmployee(resultSet));
             }
             if (result.size()==0){
-                throw new RuntimeException("Cannot find Employee with name: " + name);
+                throw new RuntimeException("Cannot find Employees with name: " + name);
             }
         } catch (SQLException e) {
             LOGGER.error("Exception occurred while connecting to DB in method getEmployeeByName(String name)", e);
@@ -71,9 +81,14 @@ public class JdbcEmployeeDao implements EmployeeDao {
     }
 
     @Override
+    public Employees getEmployeeById(int id) {
+        return null;
+    }
+
+    @Override
 //    @Transactional(propagation = Propagation.MANDATORY) - транзакция уже открыта
-    public List<Employee> getAllEmployee() {
-    List<Employee> result = new ArrayList<>();
+    public List<Employees> getAllEmployee() {
+    List<Employees> result = new ArrayList<>();
     try (
             Connection connection = dataSource.getConnection();
          Statement statement = connection.createStatement()) {
@@ -88,8 +103,8 @@ public class JdbcEmployeeDao implements EmployeeDao {
     return result;
 }
 
-    private Employee createEmployee(ResultSet resultSet) throws SQLException {
-        Employee employee = new Employee();
+    private Employees createEmployee(ResultSet resultSet) throws SQLException {
+        Employees employee = new Employees();
         employee.setId(resultSet.getInt("ID"));
         employee.setSurname(resultSet.getString("Surname"));
         employee.setName(resultSet.getString("Name"));

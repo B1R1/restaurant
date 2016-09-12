@@ -1,9 +1,6 @@
 package model.jdbc;
 
-import model.Employee;
-import model.MenuDao;
-import model.Order;
-import model.OrderDao;
+import model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,13 +16,18 @@ public class JdbcOrderDao implements OrderDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(JdbcOrderDao.class);
 
     @Override
+    public void save(Orders order) {
+
+    }
+
+    @Override
     public void addOrder() {
 
         int maxOrderNumber = 0;
-        List<Order> orders = new ArrayList<>();
+        List<Orders> orders = new ArrayList<>();
         orders.addAll(getAllOpenOrders());
         orders.addAll(getAllClosedOrders());
-        for (Order item : orders) {
+        for (Orders item : orders) {
             if (item.getOrderId() > maxOrderNumber) {
                 maxOrderNumber = item.getOrderId();
             }
@@ -34,8 +36,8 @@ public class JdbcOrderDao implements OrderDao {
 
         int numberOfWaiters = 0;
         JdbcEmployeeDao employeeDao = new JdbcEmployeeDao();
-        List<Employee> employees = employeeDao.getAllEmployee();
-        for (Employee itemRsult : employees){
+        List<Employees> employees = employeeDao.getAllEmployee();
+        for (Employees itemRsult : employees){
             if (itemRsult.getPosition().equals("waiter")){
                 numberOfWaiters++;
             }
@@ -47,9 +49,9 @@ public class JdbcOrderDao implements OrderDao {
                     "INSERT INTO orders (order_number, waiter_id) VALUES (?, ?)");
             statement.setInt(1, orderNumber);
             statement.setInt(2, id);
-            LOGGER.info("Successfully add new Order with orderNumber=" + orderNumber);
+            LOGGER.info("Successfully add new Orders with orderNumber=" + orderNumber);
         } catch (SQLException e) {
-            LOGGER.error("Exception occurred while connecting to DB in method add(Dish dish) ", e);
+            LOGGER.error("Exception occurred while connecting to DB in method add(Dishes dish) ", e);
             throw new RuntimeException(e);
         }
 
@@ -64,7 +66,7 @@ public class JdbcOrderDao implements OrderDao {
                         "INSERT INTO dishes_to_menu(menu_id, dish_name) VALUES (?, ?)");
             statement.setInt(1, menuId);
             statement.setString(2, dishName);
-            LOGGER.info("Successfully add new Dish with menuId=" + menuId + ", dishName=" + dishName);
+            LOGGER.info("Successfully add new Dishes with menuId=" + menuId + ", dishName=" + dishName);
         } catch (SQLException e) {
             LOGGER.error("Exception occurred while connecting to DB in method addDish(int  menuId, String dishName) ", e);
             throw new RuntimeException(e);
@@ -80,7 +82,7 @@ public class JdbcOrderDao implements OrderDao {
                     "DELETE FROM dishes_to_menu WHERE dish_name = ?");
             statement.setString(1, dishName);
             affectedRows++;
-            LOGGER.info("Successfully add new Dish with dishName=" + dishName);
+            LOGGER.info("Successfully add new Dishes with dishName=" + dishName);
         } catch (SQLException e) {
             LOGGER.error("Exception occurred while connecting to DB in method adeleteDish(String dishName) ", e);
             throw new RuntimeException(e);
@@ -98,7 +100,7 @@ public class JdbcOrderDao implements OrderDao {
             statement.setInt(1, id);
             statement.setBoolean(2, true);
             affectedRows++;
-            LOGGER.info("Successfully delete  Order with id=" + id);
+            LOGGER.info("Successfully delete  Orders with id=" + id);
         } catch (SQLException e) {
             LOGGER.error("Exception occurred while connecting to DB in method deleteOrder(int id) ", e);
             throw new RuntimeException(e);
@@ -116,7 +118,7 @@ public class JdbcOrderDao implements OrderDao {
             statement.setBoolean(1, false);
             statement.setInt(2, id);
             affectedRows++;
-            LOGGER.info("Successfully close Order with id=" + id);
+            LOGGER.info("Successfully close Orders with id=" + id);
         } catch (SQLException e) {
             LOGGER.error("Exception occurred while connecting to DB in method closeOrder(int id) ", e);
             throw new RuntimeException(e);
@@ -125,8 +127,8 @@ public class JdbcOrderDao implements OrderDao {
     }
 
     @Override
-    public List<Order> getAllOpenOrders() {
-        List<Order> result = new ArrayList<>();
+    public List<Orders> getAllOpenOrders() {
+        List<Orders> result = new ArrayList<>();
         try (
                 Connection connection = dataSource.getConnection();
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders WHERE isOpen = ?")) {
@@ -143,8 +145,8 @@ public class JdbcOrderDao implements OrderDao {
     }
 
     @Override
-    public List<Order> getAllClosedOrders() {
-        List<Order> result = new ArrayList<>();
+    public List<Orders> getAllClosedOrders() {
+        List<Orders> result = new ArrayList<>();
         try (
                 Connection connection = dataSource.getConnection();
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM orders WHERE isOpen = ?")) {
@@ -160,8 +162,13 @@ public class JdbcOrderDao implements OrderDao {
         return result;
     }
 
-    private Order createOrder(ResultSet resultSet) throws SQLException {
-        Order order = new Order();
+    @Override
+    public List<Orders> getAllOrders() {
+        return null;
+    }
+
+    private Orders createOrder(ResultSet resultSet) throws SQLException {
+        Orders order = new Orders();
         order.setOrderId(resultSet.getInt("orderId"));
         order.setWaiterId(resultSet.getInt("waiter_id"));
         order.setDishes(getDishesInMenu());
@@ -171,14 +178,14 @@ public class JdbcOrderDao implements OrderDao {
         return order;
     }
 
-    private List<String> getDishesInMenu() {
-        List<String> dishesInMenu = new ArrayList<>();
+    private List<Dishes> getDishesInMenu() {
+        List<Dishes> dishesInMenu = new ArrayList<>();
         try (
                 Connection connection = dataSource.getConnection();
                 Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM dishes_to_menu");
             while (resultSet.next()) {
-                dishesInMenu.add(resultSet.getString("dish_name"));
+                dishesInMenu.add((Dishes) resultSet.getObject("dish_name"));
             }
         } catch (SQLException e) {
             LOGGER.error("Exception occurred while connecting to DB in method getDishesInMenu() ", e);

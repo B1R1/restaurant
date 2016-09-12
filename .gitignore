@@ -11,7 +11,6 @@ buildNumber.properties
 .idea/*
 *.iml
 *.class
-BenchmarkResults.txt
 
 # Package Files #
 *.jar
@@ -21,4 +20,6 @@ BenchmarkResults.txt
 # IntelliJ
 /out/
 .idea/
-jdbc-2016-08-01.log
+jdbc-2016-09-12.log
+src/main/java/service/
+src/test/

@@ -8,10 +8,10 @@
     </appender>
 
     <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>log/dao.jdbc.log</file>
+        <file>log/jdbc.log</file>
         <prudent>true</prudent>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>dao.jdbc-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>jdbc-%d{yyyy-MM-dd}.log</fileNamePattern>
         </rollingPolicy>
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n</pattern>
@@ -22,5 +22,7 @@
         <appender-ref ref="console"/>
         <appender-ref ref="file"/>
     </root>
+
+    <logger name="org.hibernate.SQL" level="DEBUG"/>
 
 </configuration>
