@@ -10,14 +10,30 @@
         <property name="reInit" value="false"/>
     </bean>
 
+    <bean id="mainFactory" class="MainFactory"/>
+
     <bean id="employeeController" class="model.controllers.EmployeeController"/>
     <bean id="dishController" class="model.controllers.DishController"/>
     <bean id="orderController" class="model.controllers.OrderController"/>
     <bean id="ingredientController" class="model.controllers.IngredientController"/>
+    <bean id="menuController" class="model.controllers.MenuController"/>
 
     <bean id="employeeDao" class="model.hibernate.HEmployeeDao"/>
     <bean id="dishDao" class="model.hibernate.HDishDao"/>
     <bean id="orderDao" class="model.hibernate.HOrderDao"/>
     <bean id="ingredientDao" class="model.hibernate.HIngredient"/>
+    <bean id="menuDao" class="model.hibernate.HMenuDao"/>
+
+    <!--WEB-->
+    <bean id="employeeControllerWeb" class="web.EmployeeControllerWeb"/>
+    <bean id="clientController" class="web.client.ClientController"/>
+    <bean id="adminController" class="web.admin.AdminController"/>
+    <bean id="waiterController" class="web.client.WaiterController"/>
+    <bean id="contactsController" class="web.client.ContactsController"/>
+    <bean id="planController" class="web.client.PlanController"/>
+    <bean id="mainController" class="web.MainController"/>
+    <bean id="mainControllerWeb" class="web.client.MainControllerWeb"/>
+
+
 
 </beans>

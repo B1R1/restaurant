@@ -4,51 +4,46 @@ import model.Employees;
 import model.EmployeeDao;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class EmployeeController {
 
     private EmployeeDao employeeDao;
 
     @Transactional
-    public void createEmployee() {
+    public void add(String surname, String name) {
+        employeeDao.add(surname, name);
+    }
 
-        Set<Employees> allEmployee = new HashSet<>(employeeDao.getAllEmployee());
+    @Transactional
+    public void delete(Employees employee){
+        employeeDao.delete(employee);
+    }
 
-        Employees employee = new Employees();
-        employee.setName("Burko-55");
-        employee.setSurname("Hibernate");
-        employee.setPosition("WAITER");
-        employee.setPhoneNumber(new BigDecimal(String.valueOf(5555555)));
-        employee.setSalary(25000.0F);
-
-        if(!allEmployee.contains(employee)) {
-            employeeDao.save(employee);
-        }
-        System.out.println("ADDED");
+    @Transactional
+    public void deleteById(int id){
+        employeeDao.deleteById(id);
     }
 
     @Transactional
     public List<Employees> getByName(String name) {
-        return employeeDao.getEmployeeByName(name);
+        return employeeDao.getByName(name);
+    }
+
+    @Transactional
+    public Employees getByNameReturnEmployee(String name) {
+        List<Employees> list = employeeDao.getByName(name);
+        return list.get(0);
+    }
+
+    @Transactional
+    public Employees getById(int id) {
+        return employeeDao.getById(id);
     }
 
     @Transactional
     public List<Employees> getAll() {
-        return employeeDao.getAllEmployee();
-    }
-
-    @Transactional
-    public void printEmployee(String name) {
-       getByName(name).forEach(System.out::println);
-    }
-
-    @Transactional
-    public void printAllEmployee() {
-        getAll().forEach(System.out::println);
+        return employeeDao.getAll();
     }
 
     public void setEmployeeDao(EmployeeDao employeeDao) {

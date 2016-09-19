@@ -26,11 +26,11 @@ public class JdbcReadyDishDao implements ReadyDishDao {
             statement.setInt(3, chefId);
             statement.setInt(4, orderNumber);
             affectedRows++;
-            LOGGER.info("Successfully add new ReadyDish with dishNumber=" + dishNumber + ", dishName=" + dishName +
+            LOGGER.info("Successfully addMenu new ReadyDish with dishNumber=" + dishNumber + ", dishName=" + dishName +
                     ", chefId=" + chefId + ", orderNumber=" + orderNumber);
         } catch (SQLException e) {
             LOGGER.error("Exception occurred while connecting to DB in method " +
-                    "add(int dishNumber, String dishName, int chefId, int orderNumber) ", e);
+                    "addMenu(int dishNumber, String dishName, int chefId, int orderNumber) ", e);
             throw new RuntimeException(e);
         }
         return affectedRows;
@@ -58,8 +58,7 @@ public class JdbcReadyDishDao implements ReadyDishDao {
         dish.setDishId(resultSet.getInt("dish_number"));
         dish.setDishName(resultSet.getString("dish_name"));
         dish.setCookId(resultSet.getInt("chef_id"));
-        dish.setOrderNumber(resultSet.getInt("order_number"));
-        dish.setDate(resultSet.getString("date"));
+        dish.setOrderId(resultSet.getInt("order_number"));
         return dish;
     }
 

@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "dishes")
 public class Dishes {
 
-    @Id // проверить правильность
+    @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy="increment")
     @Column(name = "id")
@@ -24,8 +24,8 @@ public class Dishes {
     @OneToMany
     @JoinTable(
             name = "dishes_ingredients",
-            joinColumns = @JoinColumn(name = "dish"), // have to check
-            inverseJoinColumns = @JoinColumn(name = "ingredients") // have to check
+            joinColumns = @JoinColumn(name = "dish_id"), // have to check
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id") // have to check
     )
     private List<Ingredient> ingredients;
 
@@ -34,6 +34,12 @@ public class Dishes {
 
     @Column(name = "weight")
     private double weight;
+
+    public Dishes() {
+    }
+
+    public Dishes(String dishName, String category) {
+    }
 
     public int getId() {
         return id;
@@ -69,58 +75,57 @@ public class Dishes {
 
     public double getPrice() {
         return price;
-    }
+}
 
     public void setPrice(double price) {
-        this.price = price;
-    }
+            this.price = price;
+            }
 
     public double getWeight() {
-        return weight;
-    }
+            return weight;
+            }
 
     public void setWeight(double weight) {
-        this.weight = weight;
-    }
+            this.weight = weight;
+            }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
 
-        Dishes dish = (Dishes) o;
+            Dishes dish = (Dishes) o;
 
-        if (Double.compare(dish.price, price) != 0) return false;
-        if (Double.compare(dish.weight, weight) != 0) return false;
-        if (dishName != null ? !dishName.equals(dish.dishName) : dish.dishName != null) return false;
-        if (category != null ? !category.equals(dish.category) : dish.category != null) return false;
-        return ingredients != null ? ingredients.equals(dish.ingredients) : dish.ingredients == null;
+            if (Double.compare(dish.price, price) != 0) return false;
+            if (Double.compare(dish.weight, weight) != 0) return false;
+            if (dishName != null ? !dishName.equals(dish.dishName) : dish.dishName != null) return false;
+            if (category != null ? !category.equals(dish.category) : dish.category != null) return false;
+            return ingredients != null ? ingredients.equals(dish.ingredients) : dish.ingredients == null;
 
-    }
+            }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = dishName != null ? dishName.hashCode() : 0;
-        result = 31 * result + (category != null ? category.hashCode() : 0);
-        result = 31 * result + (ingredients != null ? ingredients.hashCode() : 0);
-        temp = Double.doubleToLongBits(price);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(weight);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        return result;
-    }
+            int result;
+            long temp;
+            result = dishName != null ? dishName.hashCode() : 0;
+            result = 31 * result + (category != null ? category.hashCode() : 0);
+            result = 31 * result + (ingredients != null ? ingredients.hashCode() : 0);
+            temp = Double.doubleToLongBits(price);
+            result = 31 * result + (int) (temp ^ (temp >>> 32));
+            temp = Double.doubleToLongBits(weight);
+            result = 31 * result + (int) (temp ^ (temp >>> 32));
+            return result;
+            }
 
     @Override
     public String toString() {
-        return "Dishes{" +
-                "id=" + id +
-                ", dishName='" + dishName + '\'' +
-                ", category='" + category + '\'' +
-                ", ingredients=" + ingredients +
-                ", price=" + price +
-                ", weight=" + weight +
-                '}';
+            return "Dishes{" +
+            "id=" + id +
+            ", dishName='" + dishName + '\'' +
+            ", category='" + category + '\n' +
+            "\tingredients=" + ingredients + '\n' +
+            "\tprice=" + price + '\n' +
+            "\tweight=" + weight + '\n';
     }
 }

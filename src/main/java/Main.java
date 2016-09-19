@@ -1,7 +1,6 @@
-import model.controllers.DishController;
-import model.controllers.EmployeeController;
-import model.controllers.IngredientController;
-import model.controllers.OrderController;
+import model.DishDao;
+import model.controllers.*;
+import org.hibernate.SessionFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -14,21 +13,24 @@ public class Main {
     private DishController dishController;
     private OrderController orderController;
     private IngredientController ingredientController;
+    private MenuController menuController;
+
+    private SessionFactory sessionFactory;
+
+    private DishDao dishDao;
 
     private boolean reInit;
 
 
     public static void main(String[] args) {
-        ApplicationContext applicationContext =
+        ApplicationContext context =
                 new ClassPathXmlApplicationContext("application-context.xml", "hibernate-context.xml");
-        Main main = applicationContext.getBean("main", Main.class);
+        Main main = context.getBean("main", Main.class);
         main.start();
     }
 
     public void init(){
         if(reInit){
-            employeeController.createEmployee();
-            dishController.createDish();
             List<String> dishes = new ArrayList<>();
             dishes.add("Plov");
             dishes.add("Salad");
@@ -37,17 +39,27 @@ public class Main {
     }
     private void start() {
         System.out.println("-----------START----------");
-        employeeController.printAllEmployee();
-//        employeeController.printEmployee("John");
-
 //        employeeController.getAll().forEach(System.out::println);
+//        System.out.println("===========================");
+//        dishController.getAllDishes().forEach(System.out::println);
+                System.out.println("===========================");
+//        System.out.println(menuController.getAll());
+//        System.out.println(menuController.getMenuByName("mexican"));
+//        System.out.println(dishDao.getByName("HHHH"));
+        menuController.deleteDish("mexican", "HHHH");
+//        menuController.addMenu();
+//        menuController.deleteMenu();
+        System.out.println("-----------FINISH---------");
+
+//        System.out.println("===========================");
+//        employeeController.getAll().forEach(System.out::println);
+
 //        dishController.getAllDishes().forEach(System.out::println);
 //
 //        System.out.println(employeeController.getByName("John"));
 //        System.out.println(dishController.getDish("Plov"));
 //
 //        orderController.getAll().forEach(System.out::println);
-        System.out.println("-----------FINISH---------");
     }
 
     public void setEmployeeController(EmployeeController employeeController) {
@@ -66,6 +78,19 @@ public class Main {
         this.ingredientController = ingredientController;
     }
 
-    public void setReInit(String reInit) {
+    public void setMenuController(MenuController menuController) {
+        this.menuController = menuController;
+    }
+
+    public void setReInit(boolean reInit) {
+        this.reInit = reInit;
+    }
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+    public void setDishDao(DishDao dishDao) {
+        this.dishDao = dishDao;
     }
 }

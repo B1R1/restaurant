@@ -28,15 +28,15 @@ public class JdbcOrderDao implements OrderDao {
         orders.addAll(getAllOpenOrders());
         orders.addAll(getAllClosedOrders());
         for (Orders item : orders) {
-            if (item.getOrderId() > maxOrderNumber) {
-                maxOrderNumber = item.getOrderId();
+            if (item.getId() > maxOrderNumber) {
+                maxOrderNumber = item.getId();
             }
         }
         int orderNumber = maxOrderNumber+1;
 
         int numberOfWaiters = 0;
         JdbcEmployeeDao employeeDao = new JdbcEmployeeDao();
-        List<Employees> employees = employeeDao.getAllEmployee();
+        List<Employees> employees = employeeDao.getAll();
         for (Employees itemRsult : employees){
             if (itemRsult.getPosition().equals("waiter")){
                 numberOfWaiters++;
@@ -46,12 +46,12 @@ public class JdbcOrderDao implements OrderDao {
 
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO orders (order_number, waiter_id) VALUES (?, ?)");
+                    "INSERT INTO orders (order_number, employee_id) VALUES (?, ?)");
             statement.setInt(1, orderNumber);
             statement.setInt(2, id);
-            LOGGER.info("Successfully add new Orders with orderNumber=" + orderNumber);
+            LOGGER.info("Successfully addMenu new Orders with orderNumber=" + orderNumber);
         } catch (SQLException e) {
-            LOGGER.error("Exception occurred while connecting to DB in method add(Dishes dish) ", e);
+            LOGGER.error("Exception occurred while connecting to DB in method addMenu(Dishes dish) ", e);
             throw new RuntimeException(e);
         }
 
@@ -59,14 +59,14 @@ public class JdbcOrderDao implements OrderDao {
 
     @Override
     public void addDish(int  menuId, String dishName) {
-       // add check method parameters
+       // addMenu check method parameters
         try (
                 Connection connection = dataSource.getConnection()) {
                 PreparedStatement statement = connection.prepareStatement(
                         "INSERT INTO dishes_to_menu(menu_id, dish_name) VALUES (?, ?)");
             statement.setInt(1, menuId);
             statement.setString(2, dishName);
-            LOGGER.info("Successfully add new Dishes with menuId=" + menuId + ", dishName=" + dishName);
+            LOGGER.info("Successfully addMenu new Dishes with menuId=" + menuId + ", dishName=" + dishName);
         } catch (SQLException e) {
             LOGGER.error("Exception occurred while connecting to DB in method addDish(int  menuId, String dishName) ", e);
             throw new RuntimeException(e);
@@ -82,7 +82,7 @@ public class JdbcOrderDao implements OrderDao {
                     "DELETE FROM dishes_to_menu WHERE dish_name = ?");
             statement.setString(1, dishName);
             affectedRows++;
-            LOGGER.info("Successfully add new Dishes with dishName=" + dishName);
+            LOGGER.info("Successfully addMenu new Dishes with dishName=" + dishName);
         } catch (SQLException e) {
             LOGGER.error("Exception occurred while connecting to DB in method adeleteDish(String dishName) ", e);
             throw new RuntimeException(e);
@@ -169,11 +169,10 @@ public class JdbcOrderDao implements OrderDao {
 
     private Orders createOrder(ResultSet resultSet) throws SQLException {
         Orders order = new Orders();
-        order.setOrderId(resultSet.getInt("orderId"));
-        order.setWaiterId(resultSet.getInt("waiter_id"));
+        order.setId(resultSet.getInt("orderId"));
+        order.setWaiter(new Employees());
         order.setDishes(getDishesInMenu());
         order.setTableNumber(resultSet.getInt("table_number"));
-        order.setDate(resultSet.getString("date"));
         order.setOpen(resultSet.getBoolean("isOpen"));
         return order;
     }

@@ -1,19 +1,32 @@
 package model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "ingredients")
 public class Ingredient {
 
     @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy="increment")
+    @Column(name = "id")
+    private int id;
+
+
     @Column (name = "name")
     private String ingredientName;
 
     public Ingredient() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Ingredient(String ingredientName) {
@@ -31,7 +44,8 @@ public class Ingredient {
     @Override
     public String toString() {
         return "Ingredient{" +
-                "ingredientName='" + ingredientName + '\'' +
+                "id=" + id +
+                ", ingredientName='" + ingredientName + '\'' +
                 '}';
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 public class Waiter extends Employees {
 
     @OneToMany()
-    @JoinColumn(name = "waiter_id") // колонка в таблице Orders
+    @JoinColumn(name = "employee_id") // колонка в таблице Orders
     public List<Orders> getOrders() {
         return orders;
     }

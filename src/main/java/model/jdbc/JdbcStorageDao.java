@@ -24,7 +24,7 @@ public class JdbcStorageDao implements StorageDao {
             statement.setString(1, name);
             statement.setInt(2, amount);
             affectedRows++;
-            LOGGER.info("Successfully add new Ingredient with ingredient=" + name + ", amount=" + amount);
+            LOGGER.info("Successfully addMenu new Ingredient with ingredient=" + name + ", amount=" + amount);
         } catch (SQLException e) {
             LOGGER.error("Exception occurred while connecting to DB in method addIngredient(String name, int amount)", e);
             throw new RuntimeException(e);

@@ -30,7 +30,7 @@ public class ConsoleHelper {
 //            }
 //
 //            try {
-//                dishes.add(Dish.valueOf(dish));
+//                dishes.addMenu(Dish.valueOf(dish));
 //            } catch (IllegalArgumentException var3) {
 //                writeMessage(dish + " is not detected");
 //            }

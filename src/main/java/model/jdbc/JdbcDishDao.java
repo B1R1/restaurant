@@ -17,7 +17,7 @@ public class JdbcDishDao implements DishDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(JdbcDishDao.class);
 
     @Override
-    public void save(Dishes dish) {
+    public void add(Dishes dish) {
 
     }
 
@@ -28,9 +28,9 @@ public class JdbcDishDao implements DishDao {
                     "INSERT INTO dish (dishName, category) VALUES (?, ?)");
             statement.setString(1, dishName);
             statement.setString(2, category);
-            LOGGER.info("Successfully add new Dishes with dishName=" + dishName + ", category=" + category);
+            LOGGER.info("Successfully addMenu new Dishes with dishName=" + dishName + ", category=" + category);
         } catch (SQLException e) {
-            LOGGER.error("Exception occurred while connecting to DB in method add(Dishes dish) ", e);
+            LOGGER.error("Exception occurred while connecting to DB in method addMenu(Dishes dish) ", e);
             throw new RuntimeException(e);
         }
     }
@@ -44,14 +44,14 @@ public class JdbcDishDao implements DishDao {
             affectedRows = statement.executeUpdate();
             LOGGER.info("Successfully delete Employees by name=" + name);
         } catch (SQLException e) {
-            LOGGER.error("Exception occurred while connecting to DB in method  deleteByName(String name)", e);
+            LOGGER.error("Exception occurred while connecting to DB in method  deleteMenu(String name)", e);
             throw new RuntimeException (e);
         }
         return affectedRows;
     }
 
     @Override
-    public Dishes findByName(String name) {
+    public Dishes getByName(String name) {
         try (
             Connection connection = dataSource.getConnection();
             PreparedStatement statement =connection.prepareStatement("SELECT * FROM dish WHERE NAME = ?")) {

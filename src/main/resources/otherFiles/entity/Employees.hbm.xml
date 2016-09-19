@@ -1,0 +1,11 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+
+<!--<hibernate-mapping>-->
+    <!--<class name="model.Employees" table="employees">-->
+        <!--<id column="id" name="id" type="java.lang.Integer">-->
+            <!--<generator class="increment"/>-->
+        <!--</id>-->
+        <!--<property column="name" name="name"  type="java.lang.String"/>-->
+        <!--<property column="surname" name="surname"  type="java.lang.String"/>-->
+    <!--</class>-->
+<!--</hibernate-mapping>-->

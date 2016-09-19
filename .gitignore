@@ -20,6 +20,4 @@ buildNumber.properties
 # IntelliJ
 /out/
 .idea/
-jdbc-2016-09-12.log
-src/main/java/service/
-src/test/
+

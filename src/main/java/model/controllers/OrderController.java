@@ -4,7 +4,6 @@ import model.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class OrderController {
@@ -16,10 +15,9 @@ public class OrderController {
     @Transactional
     public void createOrder(int waiterId, List<String> dishes, int tableNumber){
         Orders orders = new Orders();
-        orders.setWaiterId(employeeDao.deleteEmployeeById(waiterId));
+//        orders.setWaiterId(employeeDao.deleteById(waiterId));
         orders.setDishes(createDishes(dishes));
         orders.setTableNumber(tableNumber);
-        orders.setDate(new Date().toString());
 
         orderDao.save(orders);
     }
@@ -33,7 +31,7 @@ public class OrderController {
     public List<Dishes> createDishes(List<String> dishes) {
         List<Dishes> result = new ArrayList<>();
         for(String dishName : dishes){
-            result.add(dishDao.findByName(dishName));
+            result.add(dishDao.getByName(dishName));
         }
         return result;
     }

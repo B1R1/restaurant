@@ -1,9 +1,12 @@
 package model;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
 @Table(name = "employee")
@@ -23,7 +26,7 @@ public class Employees {
     private String name;
 
     @Column(name = "birth_date")
-    private String birthDate;
+    private Date birthDate;
 
     @Column(name = "phone_number")
     private BigDecimal phoneNumber;
@@ -35,11 +38,25 @@ public class Employees {
     @Column(name = "salary")
     private float salary;
 
-    public String getBirthDate() {
+    public Employees() {
+    }
+
+    public Employees(String surname, String name) {
+        this.surname = surname;
+        this.name = name;
+    }
+
+    public Employees(int id, String surname, String name) {
+        this.id = id;
+        this.surname = surname;
+        this.name = name;
+    }
+
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -91,7 +108,6 @@ public class Employees {
         this.salary = salary;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -122,14 +138,13 @@ public class Employees {
 
     @Override
     public String toString() {
-        return "model.Employees{" +
-                "id=" + id +
-                ", surname='" + surname + '\'' +
-                ", name='" + name + '\'' +
-                ", birthDate=" + birthDate +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", position='" + position + '\'' +
-                ", salary=" + salary +
-                '}';
+        return "Employee: \n" +
+                "\tid = " + id + '\n'+
+                "\tsurname = " + surname + '\n' +
+                "\tname = " + name + '\n' +
+                "\tbirthDate ="  + birthDate + '\n' +
+                "\tphoneNumber = " + phoneNumber + '\n' +
+                "\tposition = " + position + '\n' +
+                "\tsalary = " + salary + '\n';
     }
 }

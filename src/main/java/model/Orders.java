@@ -3,6 +3,7 @@ package model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -12,18 +13,21 @@ public class Orders {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy="increment")
+    @Column(name = "id")
+    private int id;
+
     @Column(name = "order_number")
-    private int orderId;
+    private int orderNumber;
 
     @ManyToOne
-    @JoinColumn(name = "waiter_id")
-    private int waiterId;
+    @JoinColumn(name = "employee_id")
+    private Employees waiter;
 
     @ManyToMany
     @JoinTable(
             name = "ready_dishes",
-            joinColumns = @JoinColumn(name = "order_number"), // ид нашего объекта
-            inverseJoinColumns = @JoinColumn(name = "dish_name") // ид объекта с которым связываемся
+            joinColumns = @JoinColumn(name = "order_id"), // ид нашего объекта
+            inverseJoinColumns = @JoinColumn(name = "dish_id") // ид объекта с которым связываемся
     )
     private List<Dishes> dishes;
 
@@ -31,25 +35,33 @@ public class Orders {
     private int tableNumber;
 
     @Column(name = "date")
-    private String date;
+    private Date date;
 
     @Column(name = "isOpen")
-    private boolean isOpen; // HAVE TO ADD TO TABLE
+    private boolean isOpen;
 
-    public int getOrderId() {
-        return orderId;
+    public int getId() {
+        return id;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setId(int orderId) {
+        this.id = orderId;
     }
 
-    public int getWaiterId() {
-        return waiterId;
+    public int getOrderNumber() {
+        return orderNumber;
     }
 
-    public void setWaiterId(int waiterId) {
-        this.waiterId = waiterId;
+    public void setOrderNumber(int orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    public Employees getWaiter() {
+        return waiter;
+    }
+
+    public void setWaiter(Employees waiter) {
+        this.waiter = waiter;
     }
 
     public List<Dishes> getDishes() {
@@ -68,11 +80,11 @@ public class Orders {
         this.tableNumber = tableNumber;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -87,9 +99,10 @@ public class Orders {
     @Override
     public String toString() {
         return "Orders{" +
-                "orderId=" + orderId +
-                ", waiter=" + waiterId +
-                ", dishesList=" + dishes +
+                "id=" + id +
+                ", orderNumber=" + orderNumber +
+                ", waiter=" + waiter +
+                ", dishes=" + dishes +
                 ", tableNumber=" + tableNumber +
                 ", date='" + date + '\'' +
                 ", isOpen=" + isOpen +

@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface DishDao {
 
-    void save(Dishes dish);
+    void add(Dishes dish);
     void add(String dishName, String category);
     int deleteByName(String name);
-    Dishes findByName(String name);
+    Dishes getByName(String name);
     List<Dishes> getAll();
 }

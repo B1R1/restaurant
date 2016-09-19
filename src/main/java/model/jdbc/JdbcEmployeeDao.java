@@ -16,23 +16,18 @@ public class JdbcEmployeeDao implements EmployeeDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(JdbcEmployeeDao.class);
 
     @Override
-    public void save(Employees employee) {
-
-    }
-
-    @Override
-    public void addNewEmployee(int id, String surname, String name) {
-//        Employees employee = new Employees();
-//        employee.setId(id);
-//        employee.setSurname(surname);
-//        employee.setSurname(name);
+    public void add(String surname, String name) {
+//        Employees employees = new Employees();
+//        employees.setId(id);
+//        employees.setSurname(surname);
+//        employees.setSurname(name);
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "INSERT INTO employee (id, surname, name) VALUES (id, surname, name)")) {
             statement.executeUpdate();
-            LOGGER.info("Successfully add new Employees with ID=" + id + ", surname=" + surname + ", name=" + name);
+            LOGGER.info("Successfully addMenu new Employees with surname=" + surname + ", name=" + name);
              } catch (SQLException e) {
-            LOGGER.error("Exception occurred while connecting to DB in method addNewEmployee(int id, String surname, String name", e);
+            LOGGER.error("Exception occurred while connecting to DB in method addMenu(int id, String surname, String name", e);
             throw new RuntimeException(e);
         }
     }
@@ -43,7 +38,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
     }
 
     @Override
-    public int deleteEmployeeById(int id) {
+    public int deleteById(int id) {
         int affectedRows = 0;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("DELETE FROM employee WHERE id= ?")) {
@@ -51,7 +46,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
             affectedRows = statement.executeUpdate();
             LOGGER.info("Successfully delete Employees by ID=" + id);
         } catch (SQLException e) {
-            LOGGER.error("Exception occurred while connecting to DB in method deleteEmployeeById(int id)", e);
+            LOGGER.error("Exception occurred while connecting to DB in method deleteById(int id)", e);
             throw new RuntimeException (e);
         }
         // добавить удаление зависимостей: заказ, приготовление блюда
@@ -59,7 +54,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
     }
 
     @Override
-    public List<Employees> getEmployeeByName(String name) {
+    public List<Employees> getByName(String name) {
         List<Employees> result = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
 //             Connection connection = DriverManager.getConnection("dao.jdbc:postgresql://localhost:5433/restaurant", "user" ,"1111");
@@ -74,20 +69,20 @@ public class JdbcEmployeeDao implements EmployeeDao {
                 throw new RuntimeException("Cannot find Employees with name: " + name);
             }
         } catch (SQLException e) {
-            LOGGER.error("Exception occurred while connecting to DB in method getEmployeeByName(String name)", e);
+            LOGGER.error("Exception occurred while connecting to DB in method getByName(String name)", e);
             throw new RuntimeException(e);
         }
         return result;
     }
 
     @Override
-    public Employees getEmployeeById(int id) {
+    public Employees getById(int id) {
         return null;
     }
 
     @Override
 //    @Transactional(propagation = Propagation.MANDATORY) - транзакция уже открыта
-    public List<Employees> getAllEmployee() {
+    public List<Employees> getAll() {
     List<Employees> result = new ArrayList<>();
     try (
             Connection connection = dataSource.getConnection();
@@ -97,7 +92,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
             result.add(createEmployee(resultSet));
         }
     } catch (SQLException e) {
-        LOGGER.error("Exception occurred while connecting to DB in method getAllEmployee()", e);
+        LOGGER.error("Exception occurred while connecting to DB in method getAll()", e);
         throw new RuntimeException(e);
     }
     return result;
@@ -108,7 +103,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
         employee.setId(resultSet.getInt("ID"));
         employee.setSurname(resultSet.getString("Surname"));
         employee.setName(resultSet.getString("Name"));
-        employee.setBirthDate(resultSet.getString("Birth_Date"));
+        employee.setBirthDate(resultSet.getDate("Birth_Date"));
         employee.setPhoneNumber(resultSet.getBigDecimal("Phone_Number"));
         employee.setPosition(resultSet.getString("Position"));
         employee.setSalary(resultSet.getFloat("Salary"));

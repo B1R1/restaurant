@@ -20,10 +20,6 @@ public class IngredientController {
         return ingredientDao.getAll();
     }
 
-    @Transactional
-    public void printAll() {
-        getAll().forEach(System.out::println);
-    }
 
     public void setIngredientDao(IngredientDao ingredientDao) {
         this.ingredientDao = ingredientDao;

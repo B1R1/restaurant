@@ -16,20 +16,20 @@ public class JdbcMenuDao implements MenuDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(JdbcMenuDao.class);
 
     @Override
-    public void add(String name) {
+    public void addMenu(String name) {
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO menu (name) VALUES (?)");
             statement.setString(1, name);
-            LOGGER.info("Successfully add new Menu with name=" + name);
+            LOGGER.info("Successfully addMenu new Menu with name=" + name);
         } catch (SQLException e) {
-            LOGGER.error("Exception occurred while connecting to DB in method add(String name) ", e);
+            LOGGER.error("Exception occurred while connecting to DB in method addMenu(String name) ", e);
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public int deleteByName(String name) {
+    public int deleteMenu(String name) {
         int affectedRows = 0;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("DELETE FROM menu WHERE name= ?")) {
@@ -37,7 +37,7 @@ public class JdbcMenuDao implements MenuDao {
             affectedRows = statement.executeUpdate();
             LOGGER.info("Successfully delete Menu by name=" + name);
         } catch (SQLException e) {
-            LOGGER.error("Exception occurred while connecting to DB in method  deleteByName(String name)", e);
+            LOGGER.error("Exception occurred while connecting to DB in method  deleteMenu(String name)", e);
             throw new RuntimeException (e);
         }
         return affectedRows;
@@ -46,12 +46,12 @@ public class JdbcMenuDao implements MenuDao {
     @Override
     public void addDish(String menuName, String dishName) {
         JdbcDishDao dish = new JdbcDishDao();
-        int id = findByName(menuName).getId();
+        int id = getMenuByName(menuName).getId();
         if(id<=0) {
             throw new RuntimeException("Cannot find Menu with name: " + menuName);
         }
 
-        String name  = dish.findByName(dishName).getDishName();
+        String name  = dish.getByName(dishName).getDishName();
         if(name.isEmpty()){
             throw new RuntimeException("Cannot find Dishes with name: " + dishName);
         }
@@ -61,7 +61,7 @@ public class JdbcMenuDao implements MenuDao {
                 PreparedStatement statement =connection.prepareStatement("INSERT INTO dishes_to_menu VALUES (?, ?)")) {
             statement.setInt(1, id);
             statement.setString(2, name);
-            LOGGER.info("Successfully add new Dishes to mne with menuName=" + menuName + ", dishName=" + dishName);
+            LOGGER.info("Successfully addMenu new Dishes to mne with menuName=" + menuName + ", dishName=" + dishName);
         } catch (SQLException e) {
             LOGGER.error("Exception occurred while connecting to DB in method addDish(String menuName, String dishName) ", e);
             throw new RuntimeException(e);
@@ -73,12 +73,12 @@ public class JdbcMenuDao implements MenuDao {
         JdbcDishDao dishResult = new JdbcDishDao();
         int affectedRows = 0;
 
-        String name  = dishResult.findByName(dishName).getDishName();
+        String name  = dishResult.getByName(dishName).getDishName();
         if(name.isEmpty()){
             throw new RuntimeException("Cannot find Dishes with name: " + dishName);
         }
 
-        int id = findByName(menuName).getId();
+        int id = getMenuByName(menuName).getId();
         if(id<=0) {
             throw new RuntimeException("Cannot find Menu with name: " + menuName);
         }
@@ -98,7 +98,7 @@ public class JdbcMenuDao implements MenuDao {
     }
 
     @Override
-    public Menu findByName(String name) {
+    public Menu getMenuByName(String name) {
         try (
                 Connection connection = dataSource.getConnection();
                 PreparedStatement statement =connection.prepareStatement("SELECT * FROM menu WHERE NAME = ?")) {

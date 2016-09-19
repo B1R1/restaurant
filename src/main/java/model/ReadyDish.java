@@ -1,14 +1,24 @@
 package model;
 
-import javax.persistence.Entity;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 
 @Entity
+@Table(name = "ready_dishes")
 public class ReadyDish {
+
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy="increment")
+    @Column(name = "dish_id")
     private int dishId;
+    @Column(name = "dish_name")
     private String dishName;
+    @Column(name = "chef_id")
     private int cookId;
-    private int orderNumber;
-    private String date;
+    @Column(name = "order_id")
+    private int orderId;
 
     public int getDishId() {
         return dishId;
@@ -34,30 +44,21 @@ public class ReadyDish {
         this.cookId = cookId;
     }
 
-    public int getOrderNumber() {
-        return orderNumber;
+    public int getOrderId() {
+        return orderId;
     }
 
-    public void setOrderNumber(int orderNumber) {
-        this.orderNumber = orderNumber;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+    public void setOrderId(int orderNumber) {
+        this.orderId = orderNumber;
     }
 
     @Override
     public String toString() {
         return "ReadyDish{" +
                 "dishId=" + dishId +
-                ", dish=" + dishName +
-                ", cook=" + cookId +
-                ", order=" + orderNumber +
-                ", date='" + date + '\'' +
+                ", dishName='" + dishName + '\'' +
+                ", cookId=" + cookId +
+                ", orderId=" + orderId +
                 '}';
     }
 }
