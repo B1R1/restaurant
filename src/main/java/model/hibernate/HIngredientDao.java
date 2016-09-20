@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public class HIngredient implements IngredientDao {
+public class HIngredientDao implements IngredientDao {
 
     private SessionFactory sessionFactory;
 

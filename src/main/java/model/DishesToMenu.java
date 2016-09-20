@@ -47,7 +47,7 @@ public class DishesToMenu {
     public String toString() {
         return "DishesToMenu{" +
                 "id=" + id +
-                ", dishIn=" + dishId +
+                ", dishId=" + dishId +
                 ", menuId=" + menuId +
                 '}';
     }

@@ -51,7 +51,7 @@ public class HDishDao implements DishDao {
 
     @Override
     @Transactional
-    public int deleteByName(String name) {
+    public void deleteByName(String name) {
         sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -62,23 +62,15 @@ public class HDishDao implements DishDao {
         }catch (RuntimeException e){
             System.out.println("No Dish in DB to delete");
         }
-        return 1;
     }
 
     @Override
     @Transactional
     public Dishes getByName(String name) {
-        List<Dishes> dishes = new ArrayList<>();
         sessionFactory = new Configuration().configure().buildSessionFactory();
         Query query = sessionFactory.openSession().createQuery("select d from Dishes d where d.dishName like :name");
         query.setParameter("name", name);
-        dishes = query.getResultList();
-
-        if (dishes == null || dishes.size() == 0) {
-            throw new RuntimeException("Cannot find Employee with name: " + name);
-        }
-
-        return dishes.get(1);
+        return (Dishes) query.uniqueResult();
     }
 
     @Override

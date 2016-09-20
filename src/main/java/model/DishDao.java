@@ -6,7 +6,7 @@ public interface DishDao {
 
     void add(Dishes dish);
     void add(String dishName, String category);
-    int deleteByName(String name);
+    void deleteByName(String name);
     Dishes getByName(String name);
     List<Dishes> getAll();
 }

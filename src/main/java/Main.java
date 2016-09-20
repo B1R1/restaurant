@@ -14,6 +14,7 @@ public class Main {
     private OrderController orderController;
     private IngredientController ingredientController;
     private MenuController menuController;
+    private DishToMenuController dishToMenuController;
 
     private SessionFactory sessionFactory;
 
@@ -46,7 +47,7 @@ public class Main {
 //        System.out.println(menuController.getAll());
 //        System.out.println(menuController.getMenuByName("mexican"));
 //        System.out.println(dishDao.getByName("HHHH"));
-        menuController.deleteDish("mexican", "HHHH");
+        dishToMenuController.deleteDish(3, 13);
 //        menuController.addMenu();
 //        menuController.deleteMenu();
         System.out.println("-----------FINISH---------");
@@ -92,5 +93,9 @@ public class Main {
 
     public void setDishDao(DishDao dishDao) {
         this.dishDao = dishDao;
+    }
+
+    public void setDishToMenuController(DishToMenuController dishToMenuController) {
+        this.dishToMenuController = dishToMenuController;
     }
 }
