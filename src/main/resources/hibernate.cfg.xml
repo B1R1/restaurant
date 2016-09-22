@@ -7,12 +7,17 @@
         <property name="hibernate.connection.username">user</property>
         <property name="hibernate.connection.password">1111</property>
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
+        <property name="connection.pool_size">3</property>
+        <property name="current_session_context_class">thread</property>
+        <!--<property name="show_sql">true</property>-->
+
+
         <mapping class="model.Employees"/>
         <mapping class="model.Dishes"/>
         <mapping class="model.Ingredient"/>
         <mapping class="model.Menu"/>
         <mapping class="model.DishesToMenu"/>
-        <!--<mapping class="model.Orders"/>-->
+        <mapping class="model.Orders"/>
         <!--<mapping class="model.ReadyDish"/>-->
         <!--<mapping class="model.Storage"/>-->
         <!--<mapping class="model.Waiter"/>-->

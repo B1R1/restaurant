@@ -2,13 +2,16 @@ package model.hibernate;
 
 import model.Dishes;
 import model.DishDao;
+import model.Employees;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 import org.springframework.transaction.annotation.Transactional;
+import util.HibernateUtil;
 
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -60,8 +63,41 @@ public class HDishDao implements DishDao {
             session.getTransaction().commit();
             System.out.println("Dish deleted from DB");
         }catch (RuntimeException e){
-            System.out.println("No Dish in DB to delete");
+            System.out.println("No Dish in DB to deleteByName");
         }
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(int id) {
+        sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        try {
+            session.delete(dishDao.getById(id));
+            session.getTransaction().commit();
+            System.out.println("Dish deleted from DB");
+        }catch (RuntimeException e){
+            System.out.println("No Dish in DB to deleteByName");
+        }
+    }
+
+    @Override
+    @Transactional
+    public Dishes getById(int id) {
+        Session session = null;
+        Dishes dishes = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
+            dishes = session.load(Dishes.class, id);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Exception 'getById", JOptionPane.OK_OPTION);
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+        return dishes;
     }
 
     @Override

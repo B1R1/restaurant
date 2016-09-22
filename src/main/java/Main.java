@@ -1,11 +1,14 @@
 import model.DishDao;
+import model.Menu;
 import model.controllers.*;
 import org.hibernate.SessionFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
 
@@ -40,16 +43,23 @@ public class Main {
     }
     private void start() {
         System.out.println("-----------START----------");
-//        employeeController.getAll().forEach(System.out::println);
-//        System.out.println("===========================");
-//        dishController.getAllDishes().forEach(System.out::println);
+        employeeController.getAll().forEach(System.out::println);
+        menuController.getAll().forEach(System.out::println);
                 System.out.println("===========================");
 //        System.out.println(menuController.getAll());
 //        System.out.println(menuController.getMenuByName("mexican"));
 //        System.out.println(dishDao.getByName("HHHH"));
-        dishToMenuController.deleteDish(3, 13);
+
+//        dishToMenuController.deleteDish(3, 13);
+//        dishController.deleteById(13);
+
 //        menuController.addMenu();
 //        menuController.deleteMenu();
+
+//        orderController.getAll().forEach(System.out::println);
+//        menuController.getAll().forEach(System.out::println);
+//        List<Menu> list = menuController.getAll();
+//        System.out.println(list);
         System.out.println("-----------FINISH---------");
 
 //        System.out.println("===========================");
@@ -58,7 +68,7 @@ public class Main {
 //        dishController.getAllDishes().forEach(System.out::println);
 //
 //        System.out.println(employeeController.getByName("John"));
-//        System.out.println(dishController.getDish("Plov"));
+//        System.out.println(dishController.getByName("Plov"));
 //
 //        orderController.getAll().forEach(System.out::println);
     }

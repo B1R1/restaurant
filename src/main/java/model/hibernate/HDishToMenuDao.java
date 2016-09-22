@@ -31,15 +31,15 @@ public class HDishToMenuDao implements DishToMenuDao {
 //        session.beginTransaction();
 //        DishesToMenu dishToMenu = dishToMenuDao.getById(dishId);
 //        System.out.println(dishToMenu);
-//        session.delete(dishToMenu);
+//        session.deleteByName(dishToMenu);
 //            session.getTransaction().commit();
 //            System.out.println("Dish deleted from DB");
 ////        try {
-////            session.delete(dishToMenu);
+////            session.deleteByName(dishToMenu);
 ////            session.getTransaction().commit();
 ////            System.out.println("Dish deleted from DB");
 ////        }catch (RuntimeException e){
-////            System.out.println("No Dish in DB to delete");
+////            System.out.println("No Dish in DB to deleteByName");
 ////        }
 
     }

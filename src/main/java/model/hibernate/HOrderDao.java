@@ -3,6 +3,7 @@ package model.hibernate;
 import model.Orders;
 import model.OrderDao;
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import org.springframework.transaction.annotation.Transactional;
 
 
@@ -62,7 +63,8 @@ public class HOrderDao implements OrderDao {
 
     @Override
     public List<Orders> getAllOrders() {
-        return sessionFactory.getCurrentSession().createQuery("select o from Orders o").list();
+        sessionFactory = new Configuration().configure().buildSessionFactory();
+        return sessionFactory.openSession().createQuery("select o from Orders o").list();
     }
 
     public void setSessionFactory(SessionFactory sessionFactory) {

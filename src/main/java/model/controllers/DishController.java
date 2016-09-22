@@ -18,13 +18,23 @@ public class DishController  {
     }
 
     @Transactional
-    public void delete(String name){
+    public void deleteByName(String name){
         dishDao.deleteByName(name);
     }
 
     @Transactional
-    public Dishes getDish(String name){
+    public void deleteById(int id){
+        dishDao.deleteById(id);
+    }
+
+    @Transactional
+    public Dishes getByName(String name){
         return dishDao.getByName(name);
+    }
+
+    @Transactional
+    public Dishes getById(int id){
+        return dishDao.getById(id);
     }
 
     @Transactional

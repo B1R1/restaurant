@@ -18,7 +18,7 @@ public class EmployeeControllerWeb {
     @RequestMapping(value = "/employees", method = RequestMethod.GET)
     public String employees(Map<String, Object> model){
         model.put("employees", employeeController.getAll());
-        return "employees"; //jsp с таким именем
+        return "employees";
     }
 
     @RequestMapping(value = "/employee", method = RequestMethod.GET)

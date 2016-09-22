@@ -44,7 +44,7 @@ public class JdbcEmployeeDao implements EmployeeDao {
              PreparedStatement statement = connection.prepareStatement("DELETE FROM employee WHERE id= ?")) {
             statement.setInt(1, id);
             affectedRows = statement.executeUpdate();
-            LOGGER.info("Successfully delete Employees by ID=" + id);
+            LOGGER.info("Successfully deleteByName Employees by ID=" + id);
         } catch (SQLException e) {
             LOGGER.error("Exception occurred while connecting to DB in method deleteById(int id)", e);
             throw new RuntimeException (e);

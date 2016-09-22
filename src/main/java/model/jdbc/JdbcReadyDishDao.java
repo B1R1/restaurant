@@ -56,7 +56,6 @@ public class JdbcReadyDishDao implements ReadyDishDao {
     private ReadyDish createReadyDish(ResultSet resultSet) throws SQLException {
         ReadyDish dish = new ReadyDish();
         dish.setDishId(resultSet.getInt("dish_number"));
-        dish.setDishName(resultSet.getString("dish_name"));
         dish.setCookId(resultSet.getInt("chef_id"));
         dish.setOrderId(resultSet.getInt("order_number"));
         return dish;

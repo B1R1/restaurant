@@ -40,7 +40,7 @@ public class JdbcStorageDao implements StorageDao {
              PreparedStatement statement = connection.prepareStatement("DELETE FROM storage WHERE ingredients = ?")) {
             statement.setString(1, name);
             affectedRows++;
-            LOGGER.info("Successfully delete Ingredient by name=" + name);
+            LOGGER.info("Successfully deleteByName Ingredient by name=" + name);
         } catch (SQLException e) {
             LOGGER.error("Exception occurred while connecting to DB in method deleteIngredient(String name)", e);
             throw new RuntimeException (e);

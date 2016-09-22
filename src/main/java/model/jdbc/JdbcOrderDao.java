@@ -100,7 +100,7 @@ public class JdbcOrderDao implements OrderDao {
             statement.setInt(1, id);
             statement.setBoolean(2, true);
             affectedRows++;
-            LOGGER.info("Successfully delete  Orders with id=" + id);
+            LOGGER.info("Successfully deleteByName  Orders with id=" + id);
         } catch (SQLException e) {
             LOGGER.error("Exception occurred while connecting to DB in method deleteOrder(int id) ", e);
             throw new RuntimeException(e);
@@ -171,7 +171,7 @@ public class JdbcOrderDao implements OrderDao {
         Orders order = new Orders();
         order.setId(resultSet.getInt("orderId"));
         order.setWaiter(new Employees());
-        order.setDishes(getDishesInMenu());
+        order.setReadyDishes(getDishesInMenu());
         order.setTableNumber(resultSet.getInt("table_number"));
         order.setOpen(resultSet.getBoolean("isOpen"));
         return order;

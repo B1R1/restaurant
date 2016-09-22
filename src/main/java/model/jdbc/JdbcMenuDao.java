@@ -16,6 +16,11 @@ public class JdbcMenuDao implements MenuDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(JdbcMenuDao.class);
 
     @Override
+    public void add(Menu menu) {
+
+    }
+
+    @Override
     public void addMenu(String name) {
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
@@ -29,18 +34,15 @@ public class JdbcMenuDao implements MenuDao {
     }
 
     @Override
-    public int deleteMenu(String name) {
-        int affectedRows = 0;
+    public void deleteMenu(int id) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("DELETE FROM menu WHERE name= ?")) {
-            statement.setString(1, name);
-            affectedRows = statement.executeUpdate();
-            LOGGER.info("Successfully delete Menu by name=" + name);
+            statement.setInt(1, id);
+            LOGGER.info("Successfully deleteByName Menu by id=" + id);
         } catch (SQLException e) {
-            LOGGER.error("Exception occurred while connecting to DB in method  deleteMenu(String name)", e);
+            LOGGER.error("Exception occurred while connecting to DB in method  deleteMenu(int id)", e);
             throw new RuntimeException (e);
         }
-        return affectedRows;
     }
 
     @Override
@@ -88,7 +90,7 @@ public class JdbcMenuDao implements MenuDao {
                 PreparedStatement statement =connection.prepareStatement("DELETE FROM dishes_to_menu WHERE dish_name= ? AND menu_id = ? ")) {
             statement.setString(1, name);
             statement.setInt(1, id);
-            LOGGER.info("Successfully delete Dishes to mne with menuName=" + menuName + ", dishName=" + dishName);
+            LOGGER.info("Successfully deleteByName Dishes to mne with menuName=" + menuName + ", dishName=" + dishName);
         } catch (SQLException e) {
             LOGGER.error("Exception occurred while connecting to DB in method deleteDish(String menuName, String dishName) ", e);
             throw new RuntimeException(e);
@@ -112,6 +114,11 @@ public class JdbcMenuDao implements MenuDao {
             LOGGER.error("Exception occurred while connecting to DB in method getByName(String name)", e);
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public Menu getMenuById(int id) {
+        return null;
     }
 
     @Override

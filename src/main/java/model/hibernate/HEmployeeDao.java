@@ -58,7 +58,7 @@ public class HEmployeeDao implements EmployeeDao{
             session.getTransaction().commit();
             System.out.println("Employee deleted from DB");
         }catch (RuntimeException e){
-            System.out.println("No Employee in DB to delete");
+            System.out.println("No Employee in DB to deleteByName");
         }
         return 1;
     }
@@ -86,6 +86,7 @@ public class HEmployeeDao implements EmployeeDao{
     }
 
     @Override
+    @Transactional
     public Employees getById(int id) {
 //        Session session = sessionFactory.getCurrentSession();
 //        Query query = session.createQuery("select e from Employees e where e.id like :id");
@@ -98,7 +99,7 @@ public class HEmployeeDao implements EmployeeDao{
             session = HibernateUtil.getSessionFactory().openSession();
             employee = session.load(Employees.class, id);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Exception 'findById", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Exception 'getById", JOptionPane.OK_OPTION);
         } finally {
             if (session != null && session.isOpen()) {
                 session.close();
@@ -139,7 +140,6 @@ public class HEmployeeDao implements EmployeeDao{
         return sessionFactory.openSession().createQuery("select e from Employees e").list();
 
     }
-
 
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;

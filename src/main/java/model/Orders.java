@@ -16,9 +16,6 @@ public class Orders {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "order_number")
-    private int orderNumber;
-
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employees waiter;
@@ -26,10 +23,10 @@ public class Orders {
     @ManyToMany
     @JoinTable(
             name = "ready_dishes",
-            joinColumns = @JoinColumn(name = "order_id"), // ид нашего объекта
-            inverseJoinColumns = @JoinColumn(name = "dish_id") // ид объекта с которым связываемся
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "dish_id")
     )
-    private List<Dishes> dishes;
+    private List<Dishes> readyDishes;
 
     @Column(name = "table_number")
     private int tableNumber;
@@ -37,7 +34,7 @@ public class Orders {
     @Column(name = "date")
     private Date date;
 
-    @Column(name = "isOpen")
+    @Column(name = "isopen")
     private boolean isOpen;
 
     public int getId() {
@@ -48,14 +45,6 @@ public class Orders {
         this.id = orderId;
     }
 
-    public int getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(int orderNumber) {
-        this.orderNumber = orderNumber;
-    }
-
     public Employees getWaiter() {
         return waiter;
     }
@@ -64,12 +53,12 @@ public class Orders {
         this.waiter = waiter;
     }
 
-    public List<Dishes> getDishes() {
-        return dishes;
+    public List<Dishes> getReadyDishes() {
+        return readyDishes;
     }
 
-    public void setDishes(List<Dishes> dishes) {
-        this.dishes = dishes;
+    public void setReadyDishes(List<Dishes> readyDishes) {
+        this.readyDishes = readyDishes;
     }
 
     public int getTableNumber() {
@@ -99,10 +88,9 @@ public class Orders {
     @Override
     public String toString() {
         return "Orders{" +
-                "id=" + id +
-                ", orderNumber=" + orderNumber +
-                ", waiter=" + waiter +
-                ", dishes=" + dishes +
+                "id=" + id  + '\n' +
+                "\twaiter=" + waiter +
+                ", readyDishes=" + readyDishes + '\n' +
                 ", tableNumber=" + tableNumber +
                 ", date='" + date + '\'' +
                 ", isOpen=" + isOpen +

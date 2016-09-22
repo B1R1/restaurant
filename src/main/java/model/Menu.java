@@ -21,10 +21,10 @@ public class Menu {
     @ManyToMany
     @JoinTable(
             name = "dishes_to_menu",
-            joinColumns = @JoinColumn(name = "menu_id"), // ид нашего объекта
-            inverseJoinColumns = @JoinColumn(name = "dish_id") // ид объекта с которым связываемся
+            joinColumns = @JoinColumn(name = "menu_id"), //
+            inverseJoinColumns = @JoinColumn(name = "dish_id")
     )
-    private List<Dishes> dishes;
+    private List<Dishes> menuDishes;
 
     public int getId() {
         return id;
@@ -42,12 +42,12 @@ public class Menu {
         this.name = name;
     }
 
-    public List<Dishes> getDishes() {
-        return dishes;
+    public List<Dishes> getMenuDishes() {
+        return menuDishes;
     }
 
-    public void setDishes(List<Dishes> dishes) {
-        this.dishes = dishes;
+    public void setMenuDishes(List<Dishes> dishes) {
+        this.menuDishes = dishes;
     }
 
     @Override
@@ -55,6 +55,6 @@ public class Menu {
         return "Menu{" +
                 "id=" + id +
                 ", name='" + name + '\n' +
-                "\tdishes=" + dishes + '\n';
+                "\tdishes=" + menuDishes + '\n';
     }
 }

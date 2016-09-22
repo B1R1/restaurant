@@ -16,7 +16,7 @@ public class OrderController {
     public void createOrder(int waiterId, List<String> dishes, int tableNumber){
         Orders orders = new Orders();
 //        orders.setWaiterId(employeeDao.deleteById(waiterId));
-        orders.setDishes(createDishes(dishes));
+        orders.setReadyDishes(createDishes(dishes));
         orders.setTableNumber(tableNumber);
 
         orderDao.save(orders);
@@ -40,12 +40,9 @@ public class OrderController {
         this.orderDao = orderDao;
     }
 
-
-
     public void setEmployeeDao(EmployeeDao employeeDao) {
         this.employeeDao = employeeDao;
     }
-
 
     public void setDishDao(DishDao dishDao) {
         this.dishDao = dishDao;

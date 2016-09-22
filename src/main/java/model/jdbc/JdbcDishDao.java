@@ -41,11 +41,21 @@ public class JdbcDishDao implements DishDao {
              PreparedStatement statement = connection.prepareStatement("DELETE FROM dish WHERE dishName= ?")) {
             statement.setString(1, name);
             statement.executeUpdate();
-            LOGGER.info("Successfully delete Employees by name=" + name);
+            LOGGER.info("Successfully deleteByName Employees by name=" + name);
         } catch (SQLException e) {
             LOGGER.error("Exception occurred while connecting to DB in method  deleteMenu(String name)", e);
             throw new RuntimeException (e);
         }
+    }
+
+    @Override
+    public void deleteById(int id) {
+
+    }
+
+    @Override
+    public Dishes getById(int id) {
+        return null;
     }
 
     @Override

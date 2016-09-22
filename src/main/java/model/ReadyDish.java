@@ -11,12 +11,15 @@ public class ReadyDish {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy="increment")
+    @Column(name = "id")
+    private int id;
+
     @Column(name = "dish_id")
     private int dishId;
-    @Column(name = "dish_name")
-    private String dishName;
-    @Column(name = "chef_id")
+
+    @Column(name = "cook_id")
     private int cookId;
+
     @Column(name = "order_id")
     private int orderId;
 
@@ -26,14 +29,6 @@ public class ReadyDish {
 
     public void setDishId(int dishId) {
         this.dishId = dishId;
-    }
-
-    public String getDishName() {
-        return dishName;
-    }
-
-    public void setDishName(String dishName) {
-        this.dishName = dishName;
     }
 
     public int getCookId() {
@@ -55,8 +50,8 @@ public class ReadyDish {
     @Override
     public String toString() {
         return "ReadyDish{" +
-                "dishId=" + dishId +
-                ", dishName='" + dishName + '\'' +
+                "id=" + id +
+                ", dishId=" + dishId + '\'' +
                 ", cookId=" + cookId +
                 ", orderId=" + orderId +
                 '}';
