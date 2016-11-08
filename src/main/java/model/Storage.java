@@ -1,9 +1,11 @@
 package model;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.HashMap;
 
 @Entity
+@Table(name = "storage")
 public class Storage {
 
     private HashMap<Ingredient, Integer> ingredientList;

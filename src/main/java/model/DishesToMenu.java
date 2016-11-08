@@ -14,12 +14,12 @@ public class DishesToMenu {
     @Column(name = "id")
     private int id;
 
-//    @Column(name = "dish_id")
-    @JoinColumn(name = "dish_id")
+    @Column(name = "dish_id")
+//    @JoinColumn(name = "dish_id")
     private int dishId;
 
-//    @Column(name = "menu_id")
-    @JoinColumn(name = "menu_id")
+    @Column(name = "menu_id")
+//    @JoinColumn(name = "menu_id")
     private int menuId;
 
     public int getId() {
@@ -34,8 +34,8 @@ public class DishesToMenu {
         return dishId;
     }
 
-    public void setDishId(int dishIn) {
-        this.dishId = dishIn;
+    public void setDishId(int dishId) {
+        this.dishId = dishId;
     }
 
     public int getMenuId() {

@@ -1,8 +1,6 @@
 package model.hibernate;
 
-import model.Dishes;
-import model.DishDao;
-import model.Employees;
+import model.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -21,16 +19,31 @@ public class HDishDao implements DishDao {
 
     private SessionFactory sessionFactory;
     private DishDao dishDao;
+    private DishToMenuDao dishToMenuDao;
 
     @Override
     @Transactional
     public void add(Dishes dish) {
+        List<Dishes> list = dishDao.getAll();
+        List<String> stringList = new ArrayList<>();
+        for (Dishes item : list){
+            stringList.add(item.getDishName());
+        }
+
         sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.save(dish);
-        session.getTransaction().commit();
-        System.out.println("Successfully saved new Dish to DB");
+
+        if(!stringList.contains(dish.getDishName())){
+            session.save(dish);
+            session.getTransaction().commit();
+            System.out.println("Successfully saved new Dish to DB");
+        } else {
+            session.delete(dishDao.getByName(dish.getDishName()));
+            session.save(dish);
+            session.getTransaction().commit();
+            System.out.println("Successfully upgrade Dish to DB");
+        }
     }
 
     @Override
@@ -74,11 +87,13 @@ public class HDishDao implements DishDao {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         try {
+
+            session.delete(dishToMenuDao.getById(id)); // не то ID
             session.delete(dishDao.getById(id));
             session.getTransaction().commit();
             System.out.println("Dish deleted from DB");
         }catch (RuntimeException e){
-            System.out.println("No Dish in DB to deleteByName");
+            System.out.println("No Dish in DB to deleteById");
         }
     }
 
@@ -86,10 +101,10 @@ public class HDishDao implements DishDao {
     @Transactional
     public Dishes getById(int id) {
         Session session = null;
-        Dishes dishes = null;
+        Dishes dish = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-            dishes = session.load(Dishes.class, id);
+            dish = session.load(Dishes.class, id);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Exception 'getById", JOptionPane.OK_OPTION);
         } finally {
@@ -97,7 +112,7 @@ public class HDishDao implements DishDao {
                 session.close();
             }
         }
-        return dishes;
+        return dish;
     }
 
     @Override
@@ -121,5 +136,9 @@ public class HDishDao implements DishDao {
 
     public void setDishDao(DishDao dishDao) {
         this.dishDao = dishDao;
+    }
+
+    public void setDishToMenuDao(DishToMenuDao dishToMenuDao) {
+        this.dishToMenuDao = dishToMenuDao;
     }
 }

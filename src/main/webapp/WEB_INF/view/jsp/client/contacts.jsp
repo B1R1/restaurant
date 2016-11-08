@@ -4,14 +4,14 @@
 <head>
     <title>Contacts</title>
 </head>
-<body>
-<h2>${name}</h2>
-<h2>${address}</h2>
-<h2>${phone}</h2>
-<h2>${email}</h2>
-<h2>${map}</h2>
-<img src="/WEB_INF/images/map.gif" />
-<p></p>
-<input action="action" type="button" onclick="history.go(-1);"/>
-</body>
+<div align="center">
+    <h3>${name}</h3>
+    <h3>${address}</h3>
+    <h3>${phone}</h3>
+    <h3>${email}</h3>
+    <h3>${map}</h3>
+    <img src="/WEB_INF/images/map.gif" />
+    <p></p>
+    <form><input type="button" value="Back" onclick="history.go(-1);return true;"></form>
+</div>
 </html>

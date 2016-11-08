@@ -111,7 +111,7 @@ public class JdbcDishDao implements DishDao {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM ingredients");
             while (resultSet.next()){
                 Ingredient ingredient = new Ingredient();
-                ingredient.setIngredientName(resultSet.getString("name"));
+                ingredient.setName(resultSet.getString("name"));
                 result.add(ingredient);
             }
 

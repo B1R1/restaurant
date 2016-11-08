@@ -1,5 +1,4 @@
-import model.DishDao;
-import model.Menu;
+import model.*;
 import model.controllers.*;
 import org.hibernate.SessionFactory;
 import org.springframework.context.ApplicationContext;
@@ -22,6 +21,8 @@ public class Main {
     private SessionFactory sessionFactory;
 
     private DishDao dishDao;
+    private IngredientDao ingredientDao;
+    private DishToMenuDao dishToMenuDao;
 
     private boolean reInit;
 
@@ -43,23 +44,13 @@ public class Main {
     }
     private void start() {
         System.out.println("-----------START----------");
-        employeeController.getAll().forEach(System.out::println);
-        menuController.getAll().forEach(System.out::println);
-                System.out.println("===========================");
-//        System.out.println(menuController.getAll());
-//        System.out.println(menuController.getMenuByName("mexican"));
-//        System.out.println(dishDao.getByName("HHHH"));
 
-//        dishToMenuController.deleteDish(3, 13);
-//        dishController.deleteById(13);
 
-//        menuController.addMenu();
-//        menuController.deleteMenu();
+        orderController.getAll().forEach(System.out::println);
 
-//        orderController.getAll().forEach(System.out::println);
-//        menuController.getAll().forEach(System.out::println);
-//        List<Menu> list = menuController.getAll();
-//        System.out.println(list);
+        System.out.println("===========================");
+
+
         System.out.println("-----------FINISH---------");
 
 //        System.out.println("===========================");
@@ -107,5 +98,13 @@ public class Main {
 
     public void setDishToMenuController(DishToMenuController dishToMenuController) {
         this.dishToMenuController = dishToMenuController;
+    }
+
+    public void setIngredientDao(IngredientDao ingredientDao) {
+        this.ingredientDao = ingredientDao;
+    }
+
+    public void setDishToMenuDao(DishToMenuDao dishToMenuDao) {
+        this.dishToMenuDao = dishToMenuDao;
     }
 }

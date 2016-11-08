@@ -33,9 +33,11 @@
     <bean id="waiterController" class="web.client.WaiterController"/>
     <bean id="contactsController" class="web.client.ContactsController"/>
     <bean id="planController" class="web.client.PlanController"/>
-    <bean id="mainController" class="web.MainController"/>
-    <bean id="mainControllerWeb" class="web.client.MainControllerWeb"/>
+    <bean id="mainController" class="web.client.MainControllerWeb"/>
     <bean id="menuControllerWeb" class="web.admin.MenuControllerWeb"/>
+    <bean id="ingredientControllerWeb" class="web.admin.IngredientControllerWeb"/>
+    <bean id="dishControllerWeb" class="web.admin.DishControllerWeb"/>
+    <bean id="orderControllerWeb" class="web.admin.OrderControllerWeb"/>
 
 
 </beans>

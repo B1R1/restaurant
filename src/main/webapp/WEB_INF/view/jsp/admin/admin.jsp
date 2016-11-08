@@ -1,16 +1,19 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <title>Admin</title>
 </head>
-<body>
-    <h2>See pages below:</h2>
-        <p><a href="/menus">Menu</a></p>
+<div align="center">
+    <h3>See pages below</h3>
+        <p><a href="/menus">Menus</a></p>
         <p><a href="/dishes">Dishes</a></p>
         <p><a href="/employees">Employees</a></p>
-        <p><a href="/storage">Storage</a></p>
+        <p><a href="/ingredients">Storage</a></p>
         <p><a href="/orders">Orders</a></p>
         <p></p>
-    <input action="action" type="button" onclick="history.go(-1);"/>
-</body>
+
+        <form><input type="button" value="Back" onclick="history.go(-1);return true;"></form>
+</div>
 </html>

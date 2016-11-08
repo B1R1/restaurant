@@ -54,7 +54,7 @@ public class Menu {
     public String toString() {
         return "Menu{" +
                 "id=" + id +
-                ", name='" + name + '\n' +
+                ", name=" + name + '\n' +
                 "\tdishes=" + menuDishes + '\n';
     }
 }

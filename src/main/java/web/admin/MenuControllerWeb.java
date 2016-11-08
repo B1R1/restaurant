@@ -12,23 +12,24 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MenuControllerWeb {
 
+    @Autowired
     private MenuController menuController;
+    @Autowired
     private DishController dishController;
 
     @RequestMapping("/menus")
-    public String printMenus(ModelMap model) {
+    public String printList(ModelMap model) {
         model.addAttribute("menus", menuController.getAll());
         return "admin/menus";
     }
 
-    @RequestMapping(value = "/menu/see/{name}", method = RequestMethod.GET)
-    public ModelAndView employee(@RequestParam("menuName") String name){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("menu", menuController.getMenuByName(name));
-        modelAndView.setViewName("menu");
-        return modelAndView;
-    }
-
+//    @RequestMapping(value = "/menu/see/{name}", method = RequestMethod.GET)
+//    public ModelAndView employee(@RequestParam("menuName") String name){
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.addObject("menu", menuController.getMenuByName(name));
+//        modelAndView.setViewName("menu");
+//        return modelAndView;
+//    }
 
     @RequestMapping(value = "/menus/delete/{id}", method= RequestMethod.GET)
     public String delete(@PathVariable("id")int id, ModelMap model) {
@@ -40,7 +41,7 @@ public class MenuControllerWeb {
     public String edit(@PathVariable("id")int id, ModelMap model) {
         model.addAttribute("allDishes", dishController.getAllDishes());
         model.addAttribute("menu", menuController.getMenuById(id));
-        return "menu";
+        return "admin/menu";
     }
 
     @RequestMapping(value = "/menus/search", method=RequestMethod.GET)
@@ -49,27 +50,16 @@ public class MenuControllerWeb {
         return "admin/menus";
     }
 
-
     @RequestMapping(value = "/menu", method = RequestMethod.GET)
     public String create(ModelMap model) {
         model.addAttribute("allDishes", dishController.getAllDishes());
         model.addAttribute("menu", new Menu());
-        return "menu";
+        return "admin/menu";
     }
 
     @RequestMapping(value = "/menu", method = RequestMethod.POST)
     public String submit(@ModelAttribute("menu") Menu menu) {
         menuController.add(menu);
         return "redirect: /menus";
-    }
-
-    @Autowired
-    public void setMenuController(MenuController menuController) {
-        this.menuController = menuController;
-    }
-
-    @Autowired
-    public void setDishController(DishController dishController) {
-        this.dishController = dishController;
     }
 }

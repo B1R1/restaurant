@@ -13,17 +13,6 @@
 
 <h2>Menus</h2>
 
-<%--<form name="testFrm" action="./menus/search/${name}" method="get">--%>
-    <%--<input type="submit" value="search"/>--%>
-
-    <%--<%if(session.getAttribute("searchResults") != null){--%>
-        <%--java.util.List results = (java.util.List) session.getAttribute("searchResults");--%>
-        <%--for(int i =0;i<results.size;i++){--%>
-            <%--out.println(results.get(i);--%>
-        <%--}--%>
-    <%--}%>--%>
-<%--</form>--%>
-
 <div class="container">
 
     <form:form id="searchForm" action="./menus/search/${name}" method="get">
@@ -52,9 +41,7 @@
     <tbody>
     <c:forEach items="${menus}" var="menu">
         <tr>
-            <%--<td><a href="/menu?menuName=${menu.getName()}"> ${menu.getName()}</a></td>--%>
-            <td><a href="<c:url value='/menu?menuName=${menu.getName()}'/>" /> ${menu.getName()} </a> </td>
-
+            <td><a href="/menu?menuName=${menu.getName()}"> ${menu.getName()}</a></td>
             <%--<td>--%>
                 <%--<c:forEach var="component" items="${menu.menuDishes}">--%>
                     <%--${component.dishName};--%>
@@ -69,8 +56,8 @@
         </tr>
     </c:forEach>
     </tbody>
+
 </table>
-    <form><input type="button" value="Back" onclick="history.go(-1);return true;"></form>
 </div>
 
 <%--</body>--%>

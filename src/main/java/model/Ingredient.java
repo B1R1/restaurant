@@ -14,11 +14,16 @@ public class Ingredient {
     @Column(name = "id")
     private int id;
 
-
     @Column (name = "name")
-    private String ingredientName;
+    private String name;
+
+    @Column(name = "quantity")
+    private Integer quantity;
 
     public Ingredient() {
+    }
+    public Ingredient(String ingredientName) {
+        this.name = ingredientName;
     }
 
     public int getId() {
@@ -29,23 +34,47 @@ public class Ingredient {
         this.id = id;
     }
 
-    public Ingredient(String ingredientName) {
-        this.ingredientName = ingredientName;
+    public String getName() {
+        return name;
     }
 
-    public String getIngredientName() {
-        return ingredientName;
+    public void setName(String ingredientName) {
+        this.name = ingredientName;
     }
 
-    public void setIngredientName(String ingredientName) {
-        this.ingredientName = ingredientName;
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Ingredient that = (Ingredient) o;
+
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        return quantity != null ? quantity.equals(that.quantity) : that.quantity == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
+        return result;
     }
 
     @Override
     public String toString() {
         return "Ingredient{" +
                 "id=" + id +
-                ", ingredientName='" + ingredientName + '\'' +
+                ", name='" + name + '\'' +
+                ", quantity=" + quantity +
                 '}';
     }
 }

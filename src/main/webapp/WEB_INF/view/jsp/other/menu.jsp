@@ -88,7 +88,5 @@
     </div>
 </form:form>
 
-<form><input type="button" value="Back" onclick="history.go(-1);return true;"></form>
-
 </body>
 </html>

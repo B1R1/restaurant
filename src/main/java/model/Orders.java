@@ -3,6 +3,7 @@ package model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -69,8 +70,9 @@ public class Orders {
         this.tableNumber = tableNumber;
     }
 
-    public Date getDate() {
-        return date;
+    public String getDate() throws ParseException {
+        String dateWithoutTime = date.toString().substring(0, 10);
+        return dateWithoutTime;
     }
 
     public void setDate(Date date) {

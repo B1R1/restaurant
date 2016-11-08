@@ -38,6 +38,11 @@ public class Employees {
     @Column(name = "salary")
     private float salary;
 
+//    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "photo_id")
+    @Column(name = "photo")
+    private byte[] photo;
+
     public Employees() {
     }
 
@@ -108,6 +113,14 @@ public class Employees {
         this.salary = salary;
     }
 
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -138,13 +151,14 @@ public class Employees {
 
     @Override
     public String toString() {
-        return "Employee: \n" +
-                "\tid = " + id + '\n'+
-                "\tsurname = " + surname + '\n' +
-                "\tname = " + name + '\n' +
-                "\tbirthDate ="  + birthDate + '\n' +
-                "\tphoneNumber = " + phoneNumber + '\n' +
-                "\tposition = " + position + '\n' +
-                "\tsalary = " + salary + '\n';
+        return "Employees{" +
+                "id=" + id +
+                ", surname='" + surname + '\'' +
+                ", name='" + name + '\'' +
+                ", birthDate=" + birthDate +
+                ", phoneNumber=" + phoneNumber +
+                ", position='" + position + '\'' +
+                ", salary=" + salary +
+                '}';
     }
 }

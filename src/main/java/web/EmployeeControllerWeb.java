@@ -13,6 +13,7 @@ import java.util.Map;
 //@RestController // одна вместо двух на класс: @Controller и @ResponseBody
 public class EmployeeControllerWeb {
 
+    @Autowired
     private EmployeeController employeeController;
 
     @RequestMapping(value = "/employees", method = RequestMethod.GET)
@@ -44,8 +45,4 @@ public class EmployeeControllerWeb {
 //        return result;
 //    }
 
-    @Autowired
-    public void setEmployeeController(model.controllers.EmployeeController employeeController) {
-        this.employeeController = employeeController;
-    }
 }

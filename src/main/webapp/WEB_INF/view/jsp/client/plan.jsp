@@ -5,10 +5,10 @@
 <head>
     <title>Plan</title>
 </head>
-<body>
-    <h2>Restaurant Seat Plan</h2>
-    <img src="/WEB_INF/images/plan.jpg" width="500" height="500" align: right>
+<div align="center">
+    <h3>Restaurant Seat Plan</h3>
+    <img src="/WEB_INF/images/plan.jpg" width="600" height="500" align: right>
     <p></p>
-    <input action="action" type="button" onclick="history.go(-1);"/>
-</body>
+    <form><input type="button" value="Back" onclick="history.go(-1);return true;"></form>
+</div>
 </html>

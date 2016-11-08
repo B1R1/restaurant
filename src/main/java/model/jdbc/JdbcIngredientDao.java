@@ -16,7 +16,22 @@ public class JdbcIngredientDao implements IngredientDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(JdbcIngredientDao.class);
 
     @Override
-    public void addIngredient(String name) {
+    public void add(Ingredient Ingredient) {
+
+    }
+
+    @Override
+    public void addByName(String name) {
+
+    }
+
+    @Override
+    public void update(Ingredient ingredient) {
+
+    }
+
+    @Override
+    public void delete(Ingredient Ingredient) {
 
     }
 
@@ -43,6 +58,16 @@ public class JdbcIngredientDao implements IngredientDao {
     }
 
     @Override
+    public Ingredient getById(int id) {
+        return null;
+    }
+
+    @Override
+    public List<Ingredient> getRunningOut() {
+        return null;
+    }
+
+    @Override
     public List<Ingredient> getAll() {
         List<Ingredient> ingredients = new ArrayList<>();
         try (
@@ -61,7 +86,7 @@ public class JdbcIngredientDao implements IngredientDao {
 
     private Ingredient createIngredient(ResultSet resultSet) throws SQLException {
         Ingredient ingredient = new Ingredient();
-        ingredient.setIngredientName(resultSet.getString("name"));
+        ingredient.setName(resultSet.getString("name"));
         return ingredient;
     }
 }

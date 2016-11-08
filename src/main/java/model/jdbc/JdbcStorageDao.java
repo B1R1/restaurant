@@ -20,7 +20,7 @@ public class JdbcStorageDao implements StorageDao {
         int affectedRows = 0;
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
-                    "INSERT INTO storage (ingredients, amount) VALUES (?,?)");
+                    "INSERT INTO storage (name, amount) VALUES (?,?)");
             statement.setString(1, name);
             statement.setInt(2, amount);
             affectedRows++;
@@ -37,7 +37,7 @@ public class JdbcStorageDao implements StorageDao {
     public int deleteIngredient(String name) {
         int affectedRows = 0;
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("DELETE FROM storage WHERE ingredients = ?")) {
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM storage WHERE name = ?")) {
             statement.setString(1, name);
             affectedRows++;
             LOGGER.info("Successfully deleteByName Ingredient by name=" + name);
@@ -73,7 +73,7 @@ public class JdbcStorageDao implements StorageDao {
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 Ingredient ingredient = new Ingredient();
-                ingredient.setIngredientName(resultSet.getString("ingredients"));
+                ingredient.setName(resultSet.getString("ingredients"));
                 return ingredient;
             } else
                 throw new RuntimeException("Cannot find Ingredient with name: " + name);
@@ -92,7 +92,7 @@ public class JdbcStorageDao implements StorageDao {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM storage");
             while (resultSet.next()){
                 Ingredient ingredient = new Ingredient();
-                ingredient.setIngredientName(resultSet.getString("ingredients"));
+                ingredient.setName(resultSet.getString("ingredients"));
                 int amount = resultSet.getInt("amount");
                 storage.put(ingredient, amount);
             }
@@ -114,7 +114,7 @@ public class JdbcStorageDao implements StorageDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Ingredient ingredient = new Ingredient();
-                ingredient.setIngredientName(resultSet.getString("ingredients"));
+                ingredient.setName(resultSet.getString("ingredients"));
                 int amountResult = resultSet.getInt("amount");
                 storage.put(ingredient, amountResult);
             }

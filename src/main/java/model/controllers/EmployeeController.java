@@ -2,6 +2,7 @@ package model.controllers;
 
 import model.Employees;
 import model.EmployeeDao;
+import model.Ingredient;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
